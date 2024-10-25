@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=3 uid="uid://babgkh76286oe"]
 
-[ext_resource type="Shader" path="res://GettingStarted/ShadersInGodot/shaders_in_godot.gdshader" id="1_1k2yv"]
+[ext_resource type="Shader" path="res://02GettingStarted/ShadersInGodot/shaders_in_godot.gdshader" id="1_1k2yv"]
 [ext_resource type="Texture2D" uid="uid://c2ptfr67nopbw" path="res://icon.svg" id="2_x6idm"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_3mset"]

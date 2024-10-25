@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=3 uid="uid://k7n6r0bmobap"]
 
-[ext_resource type="Shader" path="res://Outlines/OutlinesFor2DSprites/outlines_for_2d_sprites.gdshader" id="1_w7727"]
+[ext_resource type="Shader" path="res://03Outlines/OutlinesFor2DSprites/outlines_for_2d_sprites.gdshader" id="1_w7727"]
 [ext_resource type="Texture2D" uid="uid://c2ptfr67nopbw" path="res://icon.svg" id="2_kpgrc"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_y55th"]

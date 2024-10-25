@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://cf1fxnkc6unnc"]
 
-[ext_resource type="Shader" path="res://Intro/ControlColorWithYourFirstShader/control_color.gdshader" id="1_iqaxh"]
+[ext_resource type="Shader" path="res://01Intro/ControlColorWithYourFirstShader/control_color.gdshader" id="1_iqaxh"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_83r4l"]
 shader = ExtResource("1_iqaxh")

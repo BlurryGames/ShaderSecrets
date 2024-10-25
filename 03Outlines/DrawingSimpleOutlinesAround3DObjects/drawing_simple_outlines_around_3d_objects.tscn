@@ -1,7 +1,7 @@
 [gd_scene load_steps=9 format=3 uid="uid://bnpnifq71rbgn"]
 
-[ext_resource type="Shader" path="res://Outlines/DrawingSimpleOutlinesAround3DObjects/outlines_around_3d_objects.gdshader" id="1_wj6or"]
-[ext_resource type="Shader" path="res://Outlines/DrawingSimpleOutlinesAround3DObjects/outlines_around_cube.gdshader" id="2_mrfrb"]
+[ext_resource type="Shader" path="res://03Outlines/DrawingSimpleOutlinesAround3DObjects/outlines_around_3d_objects.gdshader" id="1_wj6or"]
+[ext_resource type="Shader" path="res://03Outlines/DrawingSimpleOutlinesAround3DObjects/outlines_around_cube.gdshader" id="2_mrfrb"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_8ec0o"]
 render_priority = 0

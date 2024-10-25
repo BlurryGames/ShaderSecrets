@@ -1,0 +1,35 @@
+[gd_scene load_steps=7 format=3 uid="uid://bflegp13vuukf"]
+
+[ext_resource type="Shader" path="res://04Dissolve/Dissolving3DObjects/dissolving_3d_objects.gdshader" id="1_do35e"]
+
+[sub_resource type="Environment" id="Environment_hp8gs"]
+glow_enabled = true
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_xne2n"]
+noise_type = 4
+fractal_lacunarity = 2.8
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_qvd8a"]
+seamless = true
+noise = SubResource("FastNoiseLite_xne2n")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_xy6sk"]
+render_priority = 0
+shader = ExtResource("1_do35e")
+shader_parameter/color = Color(0, 0, 0, 1)
+shader_parameter/emission_color = Color(1, 0, 0, 1)
+shader_parameter/emission_amount = 3.5
+shader_parameter/burn_size = 0.48
+shader_parameter/dissolve_amount = 1.0
+shader_parameter/dissolve_texture = SubResource("NoiseTexture2D_qvd8a")
+
+[sub_resource type="SphereMesh" id="SphereMesh_7sfmm"]
+
+[node name="Dissolving3DObjects" type="Node"]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_hp8gs")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+material_override = SubResource("ShaderMaterial_xy6sk")
+mesh = SubResource("SphereMesh_7sfmm")

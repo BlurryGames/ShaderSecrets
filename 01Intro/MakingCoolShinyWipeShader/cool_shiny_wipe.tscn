@@ -1,6 +1,6 @@
 [gd_scene load_steps=7 format=3 uid="uid://lc2vn3amifb0"]
 
-[ext_resource type="Shader" path="res://Intro/MakingCoolShinyWipeShader/cool_shiny_wipe.gdshader" id="1_sdlug"]
+[ext_resource type="Shader" path="res://01Intro/MakingCoolShinyWipeShader/cool_shiny_wipe.gdshader" id="1_sdlug"]
 [ext_resource type="Texture2D" uid="uid://c2ptfr67nopbw" path="res://icon.svg" id="2_lgkh0"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_647b7"]
