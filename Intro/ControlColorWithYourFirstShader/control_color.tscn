@@ -1,0 +1,13 @@
+[gd_scene load_steps=3 format=3 uid="uid://cf1fxnkc6unnc"]
+
+[ext_resource type="Shader" path="res://Intro/ControlColorWithYourFirstShader/control_color.gdshader" id="1_iqaxh"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_83r4l"]
+shader = ExtResource("1_iqaxh")
+
+[node name="ControlColor" type="Node"]
+
+[node name="ColorRect" type="ColorRect" parent="."]
+material = SubResource("ShaderMaterial_83r4l")
+offset_right = 40.0
+offset_bottom = 40.0
