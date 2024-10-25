@@ -1,0 +1,13 @@
+[gd_scene load_steps=4 format=3 uid="uid://dxtpebo72j3uw"]
+
+[ext_resource type="Shader" path="res://Intro/DebuggingShaders/debugging.gdshader" id="1_4qrje"]
+[ext_resource type="Texture2D" uid="uid://c2ptfr67nopbw" path="res://icon.svg" id="2_cj720"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_1yu50"]
+shader = ExtResource("1_4qrje")
+
+[node name="DebuggingShaders" type="Node"]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+material = SubResource("ShaderMaterial_1yu50")
+texture = ExtResource("2_cj720")
