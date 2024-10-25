@@ -1,0 +1,20 @@
+[gd_scene load_steps=5 format=3 uid="uid://du5c278gjxugc"]
+
+[ext_resource type="Shader" path="res://Outlines/PixelPerfect3DOutline/pixel_perfect_3d_outline.gdshader" id="1_4y415"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_jwsxv"]
+render_priority = 0
+shader = ExtResource("1_4y415")
+shader_parameter/outline_color = Color(1, 0, 1, 1)
+shader_parameter/outline_width = 10.0
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_2n6bk"]
+next_pass = SubResource("ShaderMaterial_jwsxv")
+
+[sub_resource type="TorusMesh" id="TorusMesh_adqbj"]
+
+[node name="PixelPerfect3DOutline" type="Node"]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+material_override = SubResource("StandardMaterial3D_2n6bk")
+mesh = SubResource("TorusMesh_adqbj")
