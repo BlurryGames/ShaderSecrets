@@ -1,0 +1,38 @@
+[gd_scene load_steps=9 format=3 uid="uid://bnpnifq71rbgn"]
+
+[ext_resource type="Shader" path="res://Outlines/DrawingSimpleOutlinesAround3DObjects/outlines_around_3d_objects.gdshader" id="1_wj6or"]
+[ext_resource type="Shader" path="res://Outlines/DrawingSimpleOutlinesAround3DObjects/outlines_around_cube.gdshader" id="2_mrfrb"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_8ec0o"]
+render_priority = 0
+shader = ExtResource("1_wj6or")
+shader_parameter/outline_color = Color(0, 1, 0, 1)
+shader_parameter/thickness = 0.1
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_4tl4b"]
+next_pass = SubResource("ShaderMaterial_8ec0o")
+
+[sub_resource type="SphereMesh" id="SphereMesh_vrpqa"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_vftfu"]
+render_priority = 0
+shader = ExtResource("2_mrfrb")
+shader_parameter/outline_color = Color(1, 1, 0, 1)
+shader_parameter/thickness = 0.1
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_01pwh"]
+next_pass = SubResource("ShaderMaterial_vftfu")
+
+[sub_resource type="BoxMesh" id="BoxMesh_ahxc5"]
+
+[node name="DrawingSimpleOutlinesAround3DObjects" type="Node"]
+
+[node name="MeshSphere" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+material_override = SubResource("StandardMaterial3D_4tl4b")
+mesh = SubResource("SphereMesh_vrpqa")
+
+[node name="MeshCube" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 0)
+material_override = SubResource("StandardMaterial3D_01pwh")
+mesh = SubResource("BoxMesh_ahxc5")
