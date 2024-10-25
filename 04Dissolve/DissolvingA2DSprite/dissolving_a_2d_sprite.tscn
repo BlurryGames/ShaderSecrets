@@ -1,0 +1,32 @@
+[gd_scene load_steps=7 format=3 uid="uid://baabu1ku003mf"]
+
+[ext_resource type="Shader" path="res://04Dissolve/DissolvingA2DSprite/dissolving_a_2d_sprite.gdshader" id="1_wyjyt"]
+[ext_resource type="Texture2D" uid="uid://c2ptfr67nopbw" path="res://icon.svg" id="2_5cwlp"]
+
+[sub_resource type="Environment" id="Environment_xbnfl"]
+background_mode = 3
+glow_enabled = true
+glow_blend_mode = 0
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_4tlf6"]
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_owke0"]
+seamless = true
+noise = SubResource("FastNoiseLite_4tlf6")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_o8eel"]
+shader = ExtResource("1_wyjyt")
+shader_parameter/burn_color = Color(1, 0, 0, 1)
+shader_parameter/burn_size = 1.0
+shader_parameter/dissolve_amount = 1.0
+shader_parameter/emission_amount = 4.1
+shader_parameter/dissolve_texture = SubResource("NoiseTexture2D_owke0")
+
+[node name="DissolvingA2DSprite" type="Node"]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_xbnfl")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+material = SubResource("ShaderMaterial_o8eel")
+texture = ExtResource("2_5cwlp")
