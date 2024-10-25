@@ -1,0 +1,32 @@
+[gd_scene load_steps=7 format=3 uid="uid://do2jt4r72eiws"]
+
+[ext_resource type="Shader" path="res://05ScreenAndMasking/RevealingAMeshWithSphereMask/revealing_a_mesh_with_sphere_mask.gdshader" id="1_uhgky"]
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_cqa0g"]
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_0wjis"]
+noise = SubResource("FastNoiseLite_cqa0g")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_o1ey1"]
+render_priority = 0
+shader = ExtResource("1_uhgky")
+shader_parameter/mask_center = Vector3(0, 0, 0)
+shader_parameter/mask_radius = 5.0
+shader_parameter/object_color = Color(0, 0, 0, 0)
+shader_parameter/mask_color = Color(1, 0, 0, 1)
+shader_parameter/mask_border_radius = 0.1
+shader_parameter/emission_energy = 3.0
+shader_parameter/ghost_noise = SubResource("NoiseTexture2D_0wjis")
+
+[sub_resource type="BoxMesh" id="BoxMesh_85diw"]
+
+[sub_resource type="SphereMesh" id="SphereMesh_o28ii"]
+
+[node name="RevealingAMeshWithSphereMask" type="Node"]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+material_override = SubResource("ShaderMaterial_o1ey1")
+mesh = SubResource("BoxMesh_85diw")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="."]
+mesh = SubResource("SphereMesh_o28ii")
