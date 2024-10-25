@@ -1,0 +1,70 @@
+[gd_scene load_steps=9 format=3 uid="uid://cjhig0lhra82u"]
+
+[ext_resource type="Shader" path="res://05ScreenAndMasking/X-rayIn3DSpace/x-ray_effect.gdshader" id="1_7r2t6"]
+[ext_resource type="Shader" path="res://05ScreenAndMasking/X-rayIn3DSpace/x-ray_in_3d_space.gdshader" id="1_42fsl"]
+[ext_resource type="Texture2D" uid="uid://c2ptfr67nopbw" path="res://icon.svg" id="2_and5q"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_md8jo"]
+render_priority = 0
+shader = ExtResource("1_7r2t6")
+shader_parameter/xray_color_intensity = 1.0
+shader_parameter/outline_sharpness = 2.0
+shader_parameter/outline_color = Color(1, 1, 1, 1)
+
+[sub_resource type="SphereMesh" id="SphereMesh_3y78m"]
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_ujmx7"]
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_vyt3m"]
+noise = SubResource("FastNoiseLite_ujmx7")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_8k34x"]
+shader = ExtResource("1_42fsl")
+shader_parameter/stencil_view = SubResource("NoiseTexture2D_vyt3m")
+
+[node name="X-rayIn3DSpace" type="Node"]
+
+[node name="SubViewportContainer" type="SubViewportContainer" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="SubViewport" type="SubViewport" parent="SubViewportContainer"]
+transparent_bg = true
+handle_input_locally = false
+size = Vector2i(1920, 1080)
+
+[node name="Camera3D" type="Camera3D" parent="SubViewportContainer/SubViewport"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 3)
+cull_mask = 1048572
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="SubViewportContainer/SubViewport"]
+layers = 4
+material_override = SubResource("ShaderMaterial_md8jo")
+mesh = SubResource("SphereMesh_3y78m")
+
+[node name="SubViewportContainer2" type="SubViewportContainer" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="SubViewport" type="SubViewport" parent="SubViewportContainer2"]
+transparent_bg = true
+handle_input_locally = false
+size = Vector2i(1920, 1080)
+render_target_update_mode = 4
+
+[node name="Camera3D" type="Camera3D" parent="SubViewportContainer2/SubViewport"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 3)
+cull_mask = 1048570
+
+[node name="TextureRect" type="TextureRect" parent="."]
+material = SubResource("ShaderMaterial_8k34x")
+offset_right = 128.0
+offset_bottom = 128.0
+texture = ExtResource("2_and5q")
+flip_v = true
