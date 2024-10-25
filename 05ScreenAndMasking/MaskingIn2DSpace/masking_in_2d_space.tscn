@@ -1,0 +1,56 @@
+[gd_scene load_steps=8 format=3 uid="uid://c2h0g8maikelc"]
+
+[ext_resource type="Texture2D" uid="uid://c2ptfr67nopbw" path="res://icon.svg" id="1_3ue7l"]
+[ext_resource type="Shader" path="res://05ScreenAndMasking/MaskingIn2DSpace/masking_in_2d_space.gdshader" id="1_w8a8w"]
+
+[sub_resource type="Gradient" id="Gradient_74prk"]
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_hfkbm"]
+gradient = SubResource("Gradient_74prk")
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_stn8a"]
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_r8hny"]
+noise = SubResource("FastNoiseLite_stn8a")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_10m37"]
+shader = ExtResource("1_w8a8w")
+shader_parameter/dimness = 0.2
+shader_parameter/alternative_viewport = SubResource("GradientTexture2D_hfkbm")
+shader_parameter/mask_viewport = SubResource("NoiseTexture2D_r8hny")
+
+[node name="MaskingIn2DSpace" type="Node"]
+
+[node name="MainView" type="SubViewportContainer" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="SubViewport" type="SubViewport" parent="MainView"]
+
+[node name="GeasView" type="SubViewportContainer" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="SubViewport2" type="SubViewport" parent="GeasView"]
+
+[node name="ConeMaskView" type="SubViewportContainer" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="SubViewport3" type="SubViewport" parent="ConeMaskView"]
+
+[node name="Presentation" type="TextureRect" parent="."]
+material = SubResource("ShaderMaterial_10m37")
+offset_right = 40.0
+offset_bottom = 40.0
+texture = ExtResource("1_3ue7l")
+flip_v = true
