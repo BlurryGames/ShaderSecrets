@@ -1,0 +1,67 @@
+[gd_scene load_steps=13 format=3 uid="uid://cifjuv6420trf"]
+
+[ext_resource type="Shader" path="res://13Enviromental3DVFX/StylizedFireWithParticlesAndBillboardShaders/stylized_fire_with_particles_and_billboard_shaders.gdshader" id="1_uokh6"]
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_l00yb"]
+frequency = 0.0025
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_y61om"]
+in_3d_space = true
+seamless = true
+noise = SubResource("FastNoiseLite_l00yb")
+
+[sub_resource type="Gradient" id="Gradient_6sf1w"]
+offsets = PackedFloat32Array(0, 0.7, 1)
+colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 1, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_40uje"]
+gradient = SubResource("Gradient_6sf1w")
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_cwmtg"]
+render_priority = 0
+shader = ExtResource("1_uokh6")
+shader_parameter/emission_intensity = 2.0
+shader_parameter/time_scale = 3.0
+shader_parameter/texture_scale = Vector2(1, 1)
+shader_parameter/edge_softness = 0.1
+shader_parameter/noise_texture = SubResource("NoiseTexture2D_y61om")
+shader_parameter/texture_mask = SubResource("GradientTexture2D_40uje")
+
+[sub_resource type="Gradient" id="Gradient_i5hn5"]
+colors = PackedColorArray(1, 0.447059, 0, 1, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_l7p2h"]
+gradient = SubResource("Gradient_i5hn5")
+
+[sub_resource type="Curve" id="Curve_ta1cr"]
+_data = [Vector2(0, 0), 0.0, 5.07234, 0, 0, Vector2(0.628272, 1), 0.242181, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_m7lxd"]
+curve = SubResource("Curve_ta1cr")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_gv8dv"]
+lifetime_randomness = 0.8
+direction = Vector3(0, 1, 0)
+spread = 0.0
+initial_velocity_min = 0.5
+initial_velocity_max = 0.5
+gravity = Vector3(0, 0, 0)
+linear_accel_min = 4.0
+linear_accel_max = 4.0
+scale_max = 2.0
+scale_curve = SubResource("CurveTexture_m7lxd")
+color_ramp = SubResource("GradientTexture1D_l7p2h")
+
+[sub_resource type="QuadMesh" id="QuadMesh_q1sd6"]
+size = Vector2(0.5, 0.5)
+
+[node name="StylizedFireWithParticlesAndBillboardShaders" type="Node"]
+
+[node name="GPUParticles3D" type="GPUParticles3D" parent="."]
+material_override = SubResource("ShaderMaterial_cwmtg")
+amount = 50
+process_material = SubResource("ParticleProcessMaterial_gv8dv")
+draw_pass_1 = SubResource("QuadMesh_q1sd6")
