@@ -1,0 +1,36 @@
+[gd_scene load_steps=8 format=3 uid="uid://qp78rj0jsdxw"]
+
+[ext_resource type="Shader" path="res://08Water2D/CreatingTeSide-ViewWaterSurface/creating_the_side-view_water_surface.gdshader" id="1_ydnnp"]
+[ext_resource type="Texture2D" uid="uid://c2ptfr67nopbw" path="res://icon.svg" id="2_e15eq"]
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_bq54d"]
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_sp3uf"]
+noise = SubResource("FastNoiseLite_bq54d")
+
+[sub_resource type="Gradient" id="Gradient_x604q"]
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_8b55d"]
+gradient = SubResource("Gradient_x604q")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_mqh7j"]
+shader = ExtResource("1_ydnnp")
+shader_parameter/water_tint = Color(1, 0, 0, 1)
+shader_parameter/distortion_scale = Vector2(0.5, 0.5)
+shader_parameter/distortion_time_scale = 0.05
+shader_parameter/distortion_amplitude = 0.1
+shader_parameter/water_time_scale = 0.1
+shader_parameter/scale_y_factor = 2.0
+shader_parameter/tile_factor = 1.4
+shader_parameter/reflection_intensity = 0.5
+shader_parameter/scale = Vector2(0, 0)
+shader_parameter/zoom_y = null
+shader_parameter/aspect_ratio = null
+shader_parameter/transition_gradient = SubResource("GradientTexture1D_8b55d")
+shader_parameter/distortion_map = SubResource("NoiseTexture2D_sp3uf")
+
+[node name="CreatingTheSide-viewWaterSurface" type="Node"]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+material = SubResource("ShaderMaterial_mqh7j")
+texture = ExtResource("2_e15eq")
