@@ -1,0 +1,32 @@
+[gd_scene load_steps=6 format=3 uid="uid://deb4w4fdabd8d"]
+
+[ext_resource type="Shader" path="res://13Enviromental3DVFX/GlowingCrystalsMadeWithFresnelEffect/glowing_crystals_made_with_the_frensel_effect.gdshader" id="1_akxsg"]
+
+[sub_resource type="PrismMesh" id="PrismMesh_i8wmv"]
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_lacp4"]
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_ly7kx"]
+noise = SubResource("FastNoiseLite_lacp4")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_joete"]
+render_priority = 0
+shader = ExtResource("1_akxsg")
+shader_parameter/metallic = 1.85
+shader_parameter/roughness = 0.322
+shader_parameter/emission = Color(0, 1, 1, 1)
+shader_parameter/emission_energy = 0.41
+shader_parameter/fresnel_power = 3.0
+shader_parameter/fresnel_color_intensity = 1.825
+shader_parameter/fresnel_color = Color(1, 0, 0, 1)
+shader_parameter/fresnel_pulse_speed = 1.895
+shader_parameter/emission_pulse_speed = 2.25
+shader_parameter/texture_albedo = SubResource("NoiseTexture2D_ly7kx")
+shader_parameter/texture_normal = SubResource("NoiseTexture2D_ly7kx")
+shader_parameter/texture_emission = SubResource("NoiseTexture2D_ly7kx")
+
+[node name="GlowingCrystalsMadeWithTheFrenselEffect" type="Node"]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("PrismMesh_i8wmv")
+surface_material_override/0 = SubResource("ShaderMaterial_joete")
