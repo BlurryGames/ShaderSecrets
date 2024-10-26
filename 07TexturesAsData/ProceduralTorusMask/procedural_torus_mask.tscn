@@ -1,0 +1,19 @@
+[gd_scene load_steps=4 format=3 uid="uid://dggqx68eewfib"]
+
+[ext_resource type="Shader" path="res://07TexturesAsData/ProceduralTorusMask/procedural_torus_mask.gdshader" id="1_jj4gu"]
+[ext_resource type="Texture2D" uid="uid://c2ptfr67nopbw" path="res://icon.svg" id="2_gef4f"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_3sx5y"]
+shader = ExtResource("1_jj4gu")
+shader_parameter/center = Vector2(0.5, 0.5)
+shader_parameter/size = Vector2(1, 1)
+shader_parameter/thickness = 0.25
+shader_parameter/radius = 0.4
+shader_parameter/hardness = 1.0
+shader_parameter/invert = false
+
+[node name="ProceduralTorusMask" type="Node"]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+material = SubResource("ShaderMaterial_3sx5y")
+texture = ExtResource("2_gef4f")
