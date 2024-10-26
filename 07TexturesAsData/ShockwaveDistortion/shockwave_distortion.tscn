@@ -1,0 +1,38 @@
+[gd_scene load_steps=5 format=3 uid="uid://b62jj0a4xbdfb"]
+
+[ext_resource type="Shader" path="res://07TexturesAsData/ProceduralTorusMask/procedural_torus_mask.gdshader" id="1_6ts5d"]
+[ext_resource type="Shader" path="res://07TexturesAsData/ShockwaveDistortion/shockwave_distortion.gdshader" id="1_yg5pm"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ulw2b"]
+shader = ExtResource("1_yg5pm")
+shader_parameter/displacement_amount = 0.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_wvr0u"]
+shader = ExtResource("1_6ts5d")
+shader_parameter/center = Vector2(0.5, 0.5)
+shader_parameter/size = Vector2(1, 1)
+shader_parameter/thickness = 0.25
+shader_parameter/radius = 0.45
+shader_parameter/hardness = 0.5
+shader_parameter/invert = false
+
+[node name="ShockwaveDistortion" type="Node"]
+
+[node name="SubViewportContainer" type="SubViewportContainer" parent="."]
+modulate = Color(1, 1, 1, 0)
+material = SubResource("ShaderMaterial_ulw2b")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="SubViewport" type="SubViewport" parent="SubViewportContainer"]
+
+[node name="ColorRect" type="ColorRect" parent="SubViewportContainer/SubViewport"]
+material = SubResource("ShaderMaterial_wvr0u")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
