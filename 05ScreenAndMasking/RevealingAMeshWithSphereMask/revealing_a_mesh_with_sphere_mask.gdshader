@@ -26,7 +26,7 @@ void fragment()
 	{
 		discard;
 	}
-	
+
 	world_space_vert.x += TIME;
 	float noise_value = texture(ghost_noise, world_space_vert.xz).r;
 	float border_value = smoothstep(
@@ -38,7 +38,7 @@ void fragment()
 	{
 		mask_value = 1.0f;
 	}
-	
+
 	ALBEDO = mix(object_color.rgb, mask_color.rgb, mask_value);
 	EMISSION = emission_energy * mask_color.rgb * mask_value;
 }

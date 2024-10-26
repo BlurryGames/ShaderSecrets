@@ -1,0 +1,14 @@
+[gd_scene load_steps=4 format=3 uid="uid://cgob3r360ej01"]
+
+[ext_resource type="Shader" path="res://06Blur/GaussianBlur/gaussian_blur.gdshader" id="1_tcg4y"]
+[ext_resource type="Texture2D" uid="uid://c2ptfr67nopbw" path="res://icon.svg" id="2_fujww"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_m1fnb"]
+shader = ExtResource("1_tcg4y")
+shader_parameter/blur_scale = Vector2(1, 0)
+
+[node name="GaussianBlur" type="Node"]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+material = SubResource("ShaderMaterial_m1fnb")
+texture = ExtResource("2_fujww")
