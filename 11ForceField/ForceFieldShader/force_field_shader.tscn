@@ -1,0 +1,44 @@
+[gd_scene load_steps=8 format=3 uid="uid://c4417krxjy4rk"]
+
+[ext_resource type="Shader" path="res://11ForceField/ForceFieldShader/force_field_shader.gdshader" id="1_adbtn"]
+
+[sub_resource type="Environment" id="Environment_ytsiw"]
+glow_enabled = true
+glow_blend_mode = 0
+
+[sub_resource type="Gradient" id="Gradient_sewtl"]
+interpolation_mode = 1
+offsets = PackedFloat32Array(0, 0.05, 1)
+colors = PackedColorArray(0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1)
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_c6rgj"]
+noise_type = 2
+fractal_type = 0
+cellular_distance_function = 1
+cellular_return_type = 4
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_t6132"]
+color_ramp = SubResource("Gradient_sewtl")
+noise = SubResource("FastNoiseLite_c6rgj")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_x7tcn"]
+render_priority = 0
+shader = ExtResource("1_adbtn")
+shader_parameter/color = Color(0.490196, 0, 1, 1)
+shader_parameter/pattern_uv_offset = Vector2(6, 3)
+shader_parameter/pattern_scroll_speed = 0.1
+shader_parameter/frensel_power = 3.61
+shader_parameter/edge_intensity = 3.74
+shader_parameter/fill_amount = 0.1
+shader_parameter/pattern_texture = SubResource("NoiseTexture2D_t6132")
+
+[sub_resource type="SphereMesh" id="SphereMesh_dw17y"]
+
+[node name="ForceFieldShader" type="Node"]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_ytsiw")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+material_override = SubResource("ShaderMaterial_x7tcn")
+mesh = SubResource("SphereMesh_dw17y")
