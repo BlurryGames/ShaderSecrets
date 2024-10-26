@@ -16,6 +16,7 @@ gradient = SubResource("Gradient_x604q")
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_mqh7j"]
 shader = ExtResource("1_ydnnp")
 shader_parameter/transform = Basis(1, 0, 0, 0, 1, 0, 0, 0, 1)
+shader_parameter/shadow_color = null
 shader_parameter/water_tint = Color(1, 0, 0, 1)
 shader_parameter/distortion_scale = Vector2(0.5, 0.5)
 shader_parameter/distortion_time_scale = 0.05
@@ -23,6 +24,7 @@ shader_parameter/distortion_amplitude = 0.1
 shader_parameter/water_time_scale = 0.1
 shader_parameter/scale_y_factor = 2.0
 shader_parameter/tile_factor = 1.4
+shader_parameter/parallax_factor = 0.2
 shader_parameter/reflection_intensity = 0.5
 shader_parameter/scale = Vector2(0, 0)
 shader_parameter/zoom_y = null
