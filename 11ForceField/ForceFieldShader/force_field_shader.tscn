@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://c4417krxjy4rk"]
+[gd_scene load_steps=10 format=3 uid="uid://c4417krxjy4rk"]
 
 [ext_resource type="Shader" path="res://11ForceField/ForceFieldShader/force_field_shader.gdshader" id="1_adbtn"]
 
@@ -26,19 +26,34 @@ render_priority = 0
 shader = ExtResource("1_adbtn")
 shader_parameter/color = Color(0.490196, 0, 1, 1)
 shader_parameter/pattern_uv_offset = Vector2(6, 3)
-shader_parameter/pattern_scroll_speed = 0.1
-shader_parameter/frensel_power = 3.61
-shader_parameter/edge_intensity = 3.74
+shader_parameter/pattern_scroll_speed = 0.025
+shader_parameter/frensel_power = 1.0
+shader_parameter/edge_intensity = 2.0
 shader_parameter/fill_amount = 0.1
 shader_parameter/pattern_texture = SubResource("NoiseTexture2D_t6132")
 
 [sub_resource type="SphereMesh" id="SphereMesh_dw17y"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_qleem"]
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_lnojg"]
 
 [node name="ForceFieldShader" type="Node"]
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_ytsiw")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+[node name="MeshForceField" type="MeshInstance3D" parent="."]
 material_override = SubResource("ShaderMaterial_x7tcn")
 mesh = SubResource("SphereMesh_dw17y")
+
+[node name="MeshWall" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, -0.75)
+mesh = SubResource("BoxMesh_qleem")
+
+[node name="MeshFloor" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.25, 0)
+mesh = SubResource("PlaneMesh_lnojg")
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.906308, 0.422618, 0, -0.422618, 0.906308, 0, 1, 1.75)
