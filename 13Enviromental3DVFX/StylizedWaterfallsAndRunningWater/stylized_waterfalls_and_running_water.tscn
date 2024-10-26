@@ -1,0 +1,58 @@
+[gd_scene load_steps=12 format=3 uid="uid://3kjrrjofs61k"]
+
+[ext_resource type="Shader" path="res://13Enviromental3DVFX/StylizedWaterfallsAndRunningWater/stylized_waterfalls_and_running_water.gdshader" id="1_6kkyh"]
+
+[sub_resource type="Gradient" id="Gradient_nmepa"]
+colors = PackedColorArray(1, 0, 0, 1, 1, 1, 1, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_1qi46"]
+gradient = SubResource("Gradient_nmepa")
+
+[sub_resource type="Gradient" id="Gradient_hgelp"]
+colors = PackedColorArray(0, 1, 0, 0.392157, 0, 0, 1, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_gqyrw"]
+gradient = SubResource("Gradient_hgelp")
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_tgn0s"]
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_obloq"]
+in_3d_space = true
+seamless = true
+noise = SubResource("FastNoiseLite_tgn0s")
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_f4hxv"]
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_44jdp"]
+seamless = true
+noise = SubResource("FastNoiseLite_f4hxv")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ol8jo"]
+render_priority = 0
+shader = ExtResource("1_6kkyh")
+shader_parameter/main_noise_scale = Vector2(5.7, 1)
+shader_parameter/detail_noise_scale = Vector2(2.5, 2.5)
+shader_parameter/water_speed = 0.2
+shader_parameter/displacement = 0.444
+shader_parameter/foam_color = Color(1, 1, 1, 1)
+shader_parameter/foam_threshold = 0.5
+shader_parameter/foam_detail_threshold = 0.7
+shader_parameter/foam_smoothness = 0.063
+shader_parameter/max_depth = 1.0
+shader_parameter/depth_foam_offset = 0.25
+shader_parameter/debug_vertex_color = false
+shader_parameter/debug_uv = false
+shader_parameter/main_noise = SubResource("NoiseTexture2D_44jdp")
+shader_parameter/detail_noise = SubResource("NoiseTexture2D_obloq")
+shader_parameter/depth_color_curve = SubResource("GradientTexture1D_gqyrw")
+shader_parameter/debug_uv_color_grid = SubResource("GradientTexture1D_1qi46")
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_rmtgj"]
+subdivide_width = 50
+subdivide_depth = 50
+
+[node name="StylizedWaterfallsAndRunningWater" type="Node"]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+material_override = SubResource("ShaderMaterial_ol8jo")
+mesh = SubResource("PlaneMesh_rmtgj")
