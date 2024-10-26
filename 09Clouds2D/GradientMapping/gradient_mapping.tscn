@@ -1,0 +1,22 @@
+[gd_scene load_steps=6 format=3 uid="uid://5pfihy0eu2ao"]
+
+[ext_resource type="Shader" path="res://09Clouds2D/GradientMapping/gradient_mapping.gdshader" id="1_owexa"]
+[ext_resource type="Texture2D" uid="uid://c2ptfr67nopbw" path="res://icon.svg" id="2_gocdg"]
+
+[sub_resource type="Gradient" id="Gradient_upklj"]
+offsets = PackedFloat32Array(0, 0.308571, 0.554286, 0.811429, 1)
+colors = PackedColorArray(0, 0, 0, 1, 0.494118, 0.0313726, 0.984314, 1, 0, 0, 0, 1, 0.811765, 0, 0.811765, 1, 1, 1, 1, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_ega0p"]
+gradient = SubResource("Gradient_upklj")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_eib1l"]
+shader = ExtResource("1_owexa")
+shader_parameter/mix_amount = 1.0
+shader_parameter/gradient = SubResource("GradientTexture1D_ega0p")
+
+[node name="GradientMapping" type="Node"]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+material = SubResource("ShaderMaterial_eib1l")
+texture = ExtResource("2_gocdg")
