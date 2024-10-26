@@ -28,6 +28,12 @@ uniform vec2 scale;
 uniform float zoom_y;
 uniform float aspect_ratio;
 
+uniform vec4 shore_color: source_color = vec4(1.0f);
+
+uniform float shore_size: hint_range(0.0f, 0.2f) = 0.01f;
+uniform float shore_smoothness: hint_range(0.0f, 0.1f) = 0.02f;
+uniform float shore_height_factor: hint_range(0.01f, 1.0f) = 0.1f;
+
 vec2 calculate_distortion(vec2 uv, float time)
 {
 	vec2 base_uv_offset = uv * distortion_scale + time * distortion_time_scale;
@@ -60,4 +66,14 @@ void fragment()
 	float transition = texture(transition_gradient, vec2(1.0f - UV.y, 1.0f)).r;
 	
 	COLOR = mix(color_water, color_reflection, transition * reflection_intensity);
+	
+	float waves_height_gradient = UV.y - ((1.0 - height) * shore_height_factor);
+	float upper_part = 1.0 - step(0.0, waves_height_gradient);
+
+	float shoreline = smoothstep(0.0, waves_height_gradient, shore_size);
+	float wave_area = smoothstep(waves_height_gradient, 0.0, shore_smoothness * (1.0 - UV.y));
+	wave_area -= upper_part;
+	
+	COLOR.rgb += shoreline * shore_color.rgb;
+	COLOR.a *= wave_area;
 }

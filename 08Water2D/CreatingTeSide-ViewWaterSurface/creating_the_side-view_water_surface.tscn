@@ -27,8 +27,12 @@ shader_parameter/tile_factor = 1.4
 shader_parameter/parallax_factor = 0.2
 shader_parameter/reflection_intensity = 0.5
 shader_parameter/scale = Vector2(0, 0)
-shader_parameter/zoom_y = null
-shader_parameter/aspect_ratio = null
+shader_parameter/zoom_y = 0.0
+shader_parameter/aspect_ratio = 0.0
+shader_parameter/shore_color = Color(1, 1, 0, 1)
+shader_parameter/shore_size = 0.01
+shader_parameter/shore_smoothness = 0.02
+shader_parameter/shore_height_factor = 0.1
 shader_parameter/transition_gradient = SubResource("GradientTexture1D_8b55d")
 shader_parameter/distortion_map = SubResource("NoiseTexture2D_sp3uf")
 
