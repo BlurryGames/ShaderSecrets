@@ -1,0 +1,23 @@
+[gd_scene load_steps=6 format=3 uid="uid://ngbdv4fmapk1"]
+
+[ext_resource type="Shader" path="res://08Water2D/2DReflections/2d_reflections.gdshader" id="1_hi4ud"]
+[ext_resource type="Texture2D" uid="uid://c2ptfr67nopbw" path="res://icon.svg" id="2_nrvkv"]
+
+[sub_resource type="Gradient" id="Gradient_w3ubp"]
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_v7jmt"]
+gradient = SubResource("Gradient_w3ubp")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_uiw3g"]
+shader = ExtResource("1_hi4ud")
+shader_parameter/color = Color(0, 0, 0, 1)
+shader_parameter/reflection_intensity = 0.5
+shader_parameter/scale_y = 1.0
+shader_parameter/zoom_y = 1.0
+shader_parameter/transition_gradient = SubResource("GradientTexture1D_v7jmt")
+
+[node name="2DReflections" type="Node"]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+material = SubResource("ShaderMaterial_uiw3g")
+texture = ExtResource("2_nrvkv")
