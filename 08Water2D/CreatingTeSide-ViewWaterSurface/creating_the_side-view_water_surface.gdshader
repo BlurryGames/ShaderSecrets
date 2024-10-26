@@ -5,6 +5,8 @@ uniform sampler2D screen_texture: hint_screen_texture;
 uniform sampler2D transition_gradient: hint_default_black;
 uniform sampler2D distortion_map: hint_default_black;
 
+uniform mat3 transform = mat3(vec3(1.0f, 0.0f, 0.0f), vec3(0.0f ,1.0f ,0.0f), vec3(0.0f, 0.0f, 1.0f));
+
 uniform vec4 water_tint: source_color;
 
 uniform vec2 distortion_scale = vec2(0.5f);
@@ -30,13 +32,16 @@ vec2 calculate_distortion(vec2 uv, float time)
 
 void fragment()
 {
-	vec2 distortion = calculate_distortion(UV, TIME);
-	vec2 uv_waves = UV * scale * tile_factor;
+	vec3 projection = vec3(UV, 1.0) * transform;
+	vec2 uv = projection.xy / projection.z;
+	
+	vec2 distortion = calculate_distortion(uv, TIME) * distortion_amplitude;
+	vec2 uv_waves = uv * scale * tile_factor;
 	uv_waves.y *= aspect_ratio * scale_y_factor;
 	uv_waves += distortion * distortion_amplitude + vec2(water_time_scale, 0.0f) * TIME;
 	
 	float uv_size_ratio_v = SCREEN_PIXEL_SIZE.y / TEXTURE_PIXEL_SIZE.y;
-	vec2 uv_reflected = vec2(SCREEN_UV.x, SCREEN_UV.y + uv_size_ratio_v * UV.y * 2.0f * scale.y * zoom_y);
+	vec2 uv_reflected = vec2(SCREEN_UV.x, SCREEN_UV.y + uv.y * uv_size_ratio_v * 2.0 * scale.y * zoom_y);
 	uv_reflected += vec2(0.0f, uv_size_ratio_v) * distortion * distortion_amplitude;
 	
 	vec4 color_reflection = texture(screen_texture, uv_reflected);
