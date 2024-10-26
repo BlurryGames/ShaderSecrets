@@ -1,0 +1,31 @@
+[gd_scene load_steps=7 format=3 uid="uid://d3xqdx2mekkdu"]
+
+[ext_resource type="Shader" path="res://13Enviromental3DVFX/MakingStylizedPotionsWithSimpleFluidPhysics/making_stylized_potions_with_simple_fluid_physics.gdshader" id="1_y312r"]
+[ext_resource type="Script" path="res://13Enviromental3DVFX/MakingStylizedPotionsWithSimpleFluidPhysics/potion_move.gd" id="2_3xclr"]
+
+[sub_resource type="Gradient" id="Gradient_tuyhs"]
+colors = PackedColorArray(1, 0, 0, 1, 1, 1, 0, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_gixkt"]
+gradient = SubResource("Gradient_tuyhs")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_kbsvs"]
+render_priority = 0
+shader = ExtResource("1_y312r")
+shader_parameter/liquid_height = 0.345
+shader_parameter/liquid_surface_color = Color(0.7, 0.5, 1, 1)
+shader_parameter/rim_emission_intensity = 0.2
+shader_parameter/rim_exponent = 3.0
+shader_parameter/emission_intensity = 0.1
+shader_parameter/liquid_surface_gradient_size = 0.1
+shader_parameter/wobble = Vector2(0, 0)
+shader_parameter/liquid_rim_gradient = SubResource("GradientTexture1D_gixkt")
+
+[sub_resource type="SphereMesh" id="SphereMesh_isk3r"]
+
+[node name="MakingStylizedPotionsWithSimpleFluidPhysics" type="Node"]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+material_override = SubResource("ShaderMaterial_kbsvs")
+mesh = SubResource("SphereMesh_isk3r")
+script = ExtResource("2_3xclr")
