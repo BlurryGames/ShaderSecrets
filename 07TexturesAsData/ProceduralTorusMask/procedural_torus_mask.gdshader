@@ -14,10 +14,10 @@ void fragment()
 	float torus_distance = length((UV - center) * size);
 	float radius_distance = thickness /  2.0f;
 	float inner_radius = radius - radius_distance;
-	
+
 	float circle_value = clamp(abs(torus_distance - inner_radius) / thickness, 0.0f, 1.0f);
 	float circle_alpha = pow(circle_value, pow(hardness, 2.0f));
-	
+
 	float mask = abs(float(!invert) - circle_alpha);
 	COLOR.rgb = vec3(mask);
 }

@@ -3,6 +3,7 @@
 [ext_resource type="Shader" path="res://13Enviromental3DVFX/StylizedFireWithParticlesAndBillboardShaders/stylized_fire_with_particles_and_billboard_shaders.gdshader" id="1_uokh6"]
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_l00yb"]
+noise_type = 3
 frequency = 0.0025
 
 [sub_resource type="NoiseTexture2D" id="NoiseTexture2D_y61om"]

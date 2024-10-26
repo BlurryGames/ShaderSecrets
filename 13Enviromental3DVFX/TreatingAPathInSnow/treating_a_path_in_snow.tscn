@@ -1,0 +1,75 @@
+[gd_scene load_steps=11 format=3 uid="uid://8cjjda071rtj"]
+
+[ext_resource type="Script" path="res://13Enviromental3DVFX/TreatingAPathInSnow/paint_viewport.gd" id="1_8fw2k"]
+[ext_resource type="Script" path="res://13Enviromental3DVFX/TreatingAPathInSnow/player_movement.gd" id="1_xp2wi"]
+[ext_resource type="Shader" path="res://13Enviromental3DVFX/TreatingAPathInSnow/treating_a_path_in_snow.gdshader" id="2_cm3n8"]
+
+[sub_resource type="Environment" id="Environment_wijd2"]
+
+[sub_resource type="Gradient" id="Gradient_dytsq"]
+interpolation_mode = 2
+offsets = PackedFloat32Array(0, 0.75, 1)
+colors = PackedColorArray(0, 0, 0, 1, 0, 0, 0, 1, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_t34db"]
+gradient = SubResource("Gradient_dytsq")
+width = 8
+height = 8
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_m554e"]
+viewport_path = NodePath("CanvasLayer/SubViewport")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_frd82"]
+resource_local_to_scene = true
+render_priority = 0
+shader = ExtResource("2_cm3n8")
+shader_parameter/mask_texture_world_size = Vector2(16, 16)
+shader_parameter/snow_height = 0.3
+shader_parameter/snow_sharpness = 3.0
+shader_parameter/textures_tiling = Vector2(4, 4)
+shader_parameter/mask_texture = SubResource("ViewportTexture_m554e")
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_gjw2t"]
+size = Vector2(16, 16)
+subdivide_width = 128
+subdivide_depth = 128
+
+[sub_resource type="SphereMesh" id="SphereMesh_ntdjh"]
+
+[node name="TreatingAPathInSnow" type="Node"]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_wijd2")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="SubViewport" type="SubViewport" parent="CanvasLayer"]
+transparent_bg = true
+size = Vector2i(128, 128)
+render_target_clear_mode = 1
+script = ExtResource("1_8fw2k")
+
+[node name="Sprite2D" type="Sprite2D" parent="CanvasLayer/SubViewport"]
+unique_name_in_owner = true
+texture = SubResource("GradientTexture2D_t34db")
+
+[node name="MeshSnow" type="MeshInstance3D" parent="CanvasLayer"]
+unique_name_in_owner = true
+material_override = SubResource("ShaderMaterial_frd82")
+mesh = SubResource("PlaneMesh_gjw2t")
+skeleton = NodePath("../..")
+
+[node name="MeshSphere" type="MeshInstance3D" parent="CanvasLayer"]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+mesh = SubResource("SphereMesh_ntdjh")
+skeleton = NodePath("../..")
+script = ExtResource("1_xp2wi")
+
+[node name="Camera3D" type="Camera3D" parent="CanvasLayer/MeshSphere"]
+transform = Transform3D(1, 0, 0, 0, 0.866025, 0.5, 0, -0.5, 0.866025, 0, 2, 4)
+current = true
