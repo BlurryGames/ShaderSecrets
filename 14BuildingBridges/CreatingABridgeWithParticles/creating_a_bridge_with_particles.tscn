@@ -1,0 +1,88 @@
+[gd_scene load_steps=18 format=3 uid="uid://5wbhmhmkgi5"]
+
+[ext_resource type="Shader" path="res://14BuildingBridges/CreatingABridgeWithParticles/bridge_with_particles.gdshader" id="1_7kjny"]
+[ext_resource type="Script" path="res://14BuildingBridges/CreatingABridgeWithParticles/sphere_move.gd" id="2_matxt"]
+[ext_resource type="Shader" path="res://14BuildingBridges/CreatingABridgeWithParticles/creating_brick.gdshader" id="2_t80cl"]
+[ext_resource type="Script" path="res://14BuildingBridges/CreatingABridgeWithParticles/bridge_particles.gd" id="3_o8ywq"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_vr4jk"]
+shader = ExtResource("1_7kjny")
+shader_parameter/character_position = Vector3(0, 0, 0)
+shader_parameter/radius = 5.0
+shader_parameter/animation_speed = 10.0
+shader_parameter/bridge_width_particles = 12
+shader_parameter/spacing = 0.3
+
+[sub_resource type="Curve" id="Curve_7r4vb"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.358974, 0.142857), 0.0, 0.0, 0, 0, Vector2(0.574359, 0.769231), 0.0, 0.0, 0, 0, Vector2(0.825641, 0.230769), 0.0, 0.0, 0, 0, Vector2(0.994872, 1), 0.0, 0.0, 0, 0]
+point_count = 5
+
+[sub_resource type="CurveTexture" id="CurveTexture_wbq54"]
+curve = SubResource("Curve_7r4vb")
+
+[sub_resource type="Curve" id="Curve_dgk4x"]
+_data = [Vector2(0, 1), 0.0, 2.41071, 0, 0, Vector2(0.620513, 0.285714), 0.0, 0.0, 0, 0, Vector2(1, 1), -0.803571, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_4yvra"]
+curve = SubResource("Curve_dgk4x")
+
+[sub_resource type="Curve" id="Curve_fnart"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.379487, 0.406593), 3.94737, 3.94737, 0, 0, Vector2(0.594872, 0.802198), 0.0, 0.0, 0, 0, Vector2(0.758974, 0.32967), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 5
+
+[sub_resource type="CurveTexture" id="CurveTexture_cmakk"]
+curve = SubResource("Curve_fnart")
+
+[sub_resource type="Curve" id="Curve_jjhip"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.0871795, 0.527472), 0.0, 0.0, 0, 0, Vector2(0.610256, 0.483516), -3.80953, -3.80953, 0, 0, Vector2(0.902564, 0.263736), 3.2967, 3.2967, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 5
+
+[sub_resource type="CurveTexture" id="CurveTexture_d1bua"]
+curve = SubResource("Curve_jjhip")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_475rw"]
+render_priority = 0
+shader = ExtResource("2_t80cl")
+shader_parameter/oscillation_size = 0.5
+shader_parameter/emission_color = Color(0, 1, 1, 1)
+shader_parameter/albedo_color = Color(0, 0, 0, 1)
+shader_parameter/y_curve_ascend = SubResource("CurveTexture_cmakk")
+shader_parameter/y_curve_descend = SubResource("CurveTexture_d1bua")
+shader_parameter/xz_curve_ascend = SubResource("CurveTexture_wbq54")
+shader_parameter/xz_curve_descend = SubResource("CurveTexture_4yvra")
+
+[sub_resource type="BoxMesh" id="BoxMesh_nlhh2"]
+material = SubResource("ShaderMaterial_475rw")
+size = Vector3(0.3, 0.3, 0.3)
+
+[sub_resource type="SphereMesh" id="SphereMesh_qsbey"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_6ampn"]
+
+[node name="CreatingABridgeWithParticles" type="Node"]
+
+[node name="GPUParticles3D" type="GPUParticles3D" parent="."]
+amount = 996
+explosiveness = 1.0
+process_material = SubResource("ShaderMaterial_vr4jk")
+draw_pass_1 = SubResource("BoxMesh_nlhh2")
+script = ExtResource("3_o8ywq")
+
+[node name="RigidBody3D" type="RigidBody3D" parent="."]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.77892, 1.91604, 1.59547)
+mass = 2.0
+can_sleep = false
+linear_damp = 5.0
+script = ExtResource("2_matxt")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="RigidBody3D"]
+mesh = SubResource("SphereMesh_qsbey")
+skeleton = NodePath("../..")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="RigidBody3D"]
+shape = SubResource("SphereShape3D_6ampn")
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 4)
